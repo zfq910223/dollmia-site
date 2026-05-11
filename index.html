@@ -1,0 +1,1461 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dreamier FUX | 多莉米雅 原创IP名器品牌</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #0a0a0f;
+            --bg-card: rgba(20, 20, 30, 0.8);
+            --neon-pink: #ff2d95;
+            --neon-purple: #a855f7;
+            --neon-blue: #06b6d4;
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1aa;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .nav.scrolled {
+            background: rgba(10, 10, 15, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(255, 45, 149, 0.5);
+            filter: drop-shadow(0 0 10px rgba(255, 45, 149, 0.3));
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--neon-pink);
+            text-shadow: 0 0 20px rgba(255, 45, 149, 0.5);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--neon-pink), var(--neon-purple));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 2px;
+            background: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 60px;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 2rem;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-menu a {
+            display: block;
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 1rem 0;
+            font-size: 1.1rem;
+            border-bottom: 1px solid var(--glass-border);
+            transition: color 0.3s ease;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--neon-pink);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, 
+                rgba(168, 85, 247, 0.2) 0%, 
+                rgba(255, 45, 149, 0.15) 50%, 
+                rgba(6, 182, 212, 0.1) 100%);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(ellipse at 20% 50%, rgba(255, 45, 149, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 50%, rgba(168, 85, 247, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 80%, rgba(6, 182, 212, 0.1) 0%, transparent 40%);
+            animation: heroGlow 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes heroGlow {
+            0% { opacity: 0.6; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.1); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 10vw, 6rem);
+            font-weight: 900;
+            letter-spacing: 0.1em;
+            animation: breathe 3s ease-in-out infinite;
+            background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple), var(--neon-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 40px rgba(255, 45, 149, 0.4));
+        }
+
+        @keyframes breathe {
+            0%, 100% { 
+                filter: drop-shadow(0 0 40px rgba(255, 45, 149, 0.4));
+                transform: scale(1);
+            }
+            50% { 
+                filter: drop-shadow(0 0 60px rgba(168, 85, 247, 0.6));
+                transform: scale(1.02);
+            }
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            color: var(--text-secondary);
+            margin-top: 1.5rem;
+            letter-spacing: 0.3em;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple));
+            color: white;
+            box-shadow: 0 0 30px rgba(255, 45, 149, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 50px rgba(255, 45, 149, 0.5);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: var(--glass-bg);
+            border-color: var(--neon-purple);
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.2);
+        }
+
+        .floating-lines {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 200px;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .floating-line {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 45, 149, 0.3), 
+                rgba(168, 85, 247, 0.3), 
+                transparent);
+            animation: floatLine 6s ease-in-out infinite;
+        }
+
+        .floating-line:nth-child(1) { top: 20%; animation-delay: 0s; }
+        .floating-line:nth-child(2) { top: 40%; animation-delay: 1s; }
+        .floating-line:nth-child(3) { top: 60%; animation-delay: 2s; }
+        .floating-line:nth-child(4) { top: 80%; animation-delay: 3s; }
+
+        @keyframes floatLine {
+            0%, 100% { transform: translateX(-100%) scaleX(0.5); opacity: 0; }
+            50% { transform: translateX(0) scaleX(1); opacity: 1; }
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 6rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+        }
+
+        .section-line {
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--neon-pink), var(--neon-purple));
+            margin: 0 auto 3rem;
+            border-radius: 2px;
+        }
+
+        /* Character Gallery */
+        .character-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            padding: 1rem;
+        }
+
+        .character-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(10px);
+        }
+
+        .character-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--neon-pink);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.3),
+                0 0 40px rgba(255, 45, 149, 0.2);
+        }
+
+        .character-image {
+            width: 100%;
+            aspect-ratio: 3/4;
+            object-fit: cover;
+            display: block;
+        }
+
+        .character-info {
+            padding: 1.5rem;
+            background: linear-gradient(to top, var(--bg-card), transparent);
+        }
+
+        .character-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .character-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 0.5rem;
+        }
+
+        .tag {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.75rem;
+            background: linear-gradient(135deg, rgba(255, 45, 149, 0.2), rgba(168, 85, 247, 0.2));
+            border-radius: 20px;
+            color: var(--neon-pink);
+            border: 1px solid rgba(255, 45, 149, 0.3);
+        }
+
+        .character-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Product Section */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            padding: 1rem;
+        }
+
+        .product-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .product-card:hover {
+            border-color: var(--neon-purple);
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .product-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .product-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--text-primary);
+        }
+
+        .product-type {
+            font-size: 0.8rem;
+            padding: 0.3rem 0.8rem;
+            background: linear-gradient(135deg, var(--neon-purple), var(--neon-blue));
+            border-radius: 20px;
+            color: white;
+        }
+
+        .product-params {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
+
+        .param-item {
+            text-align: center;
+        }
+
+        .param-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.25rem;
+        }
+
+        .param-value {
+            font-size: 1rem;
+            font-weight: bold;
+            color: var(--neon-pink);
+        }
+
+        .product-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Brand Story */
+        .brand-section {
+            background: linear-gradient(135deg, 
+                rgba(168, 85, 247, 0.1) 0%, 
+                rgba(255, 45, 149, 0.05) 100%);
+            border-radius: 30px;
+            padding: 4rem;
+            margin: 2rem 0;
+            border: 1px solid var(--glass-border);
+        }
+
+        .brand-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .brand-text h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--neon-pink);
+        }
+
+        .brand-text p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .brand-logo {
+            text-align: center;
+        }
+
+        .brand-logo-display {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple), var(--neon-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            filter: drop-shadow(0 0 30px rgba(255, 45, 149, 0.3));
+        }
+
+        .brand-tagline {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            letter-spacing: 0.2em;
+        }
+
+        /* Contact Section */
+        .contact-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-form {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--neon-pink);
+            box-shadow: 0 0 20px rgba(255, 45, 149, 0.2);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-select {
+            cursor: pointer;
+        }
+
+        .form-select option {
+            background: var(--bg-dark);
+            color: var(--text-primary);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple));
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(255, 45, 149, 0.4);
+        }
+
+        .form-success {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .form-success.show {
+            display: block;
+        }
+
+        .success-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .success-title {
+            font-size: 1.5rem;
+            color: var(--neon-pink);
+            margin-bottom: 0.5rem;
+        }
+
+        .success-text {
+            color: var(--text-secondary);
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            border-color: var(--neon-pink);
+            color: var(--neon-pink);
+            box-shadow: 0 0 20px rgba(255, 45, 149, 0.3);
+        }
+
+        .footer-company {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-copyright {
+            color: #666;
+            font-size: 0.75rem;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            max-width: 900px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: modalIn 0.3s ease;
+        }
+
+        @keyframes modalIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: var(--glass-bg);
+            border-radius: 50%;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            background: var(--neon-pink);
+            transform: rotate(90deg);
+        }
+
+        .modal-content {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+        }
+
+        .modal-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 24px 0 0 24px;
+            min-height: 400px;
+        }
+
+        .modal-details {
+            padding: 2rem;
+        }
+
+        .modal-name {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .modal-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-section-title {
+            font-size: 0.9rem;
+            color: var(--neon-purple);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .modal-section-content {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .modal-params {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .modal-param {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .modal-param-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.25rem;
+        }
+
+        .modal-param-value {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--neon-pink);
+        }
+
+        /* Scroll Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .section {
+                padding: 4rem 1.5rem;
+            }
+
+            .brand-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .brand-section {
+                padding: 2rem;
+            }
+
+            .modal-content {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-image {
+                border-radius: 24px 24px 0 0;
+                max-height: 300px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                width: 100%;
+                padding: 0 2rem;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .product-params {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.5rem;
+            }
+
+            .character-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            .modal-name {
+                font-size: 1.5rem;
+            }
+
+            .modal-params {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="nav-logo">Dreamier FUX</div>
+        <ul class="nav-links">
+            <li><a href="#hero">首页</a></li>
+            <li><a href="#characters">角色图鉴</a></li>
+            <li><a href="#products">产品系列</a></li>
+            <li><a href="#brand">品牌故事</a></li>
+            <li><a href="#contact">联系我们</a></li>
+        </ul>
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#hero">首页</a>
+        <a href="#characters">角色图鉴</a>
+        <a href="#products">产品系列</a>
+        <a href="#brand">品牌故事</a>
+        <a href="#contact">联系我们</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Dreamier FUX</h1>
+            <p class="hero-subtitle">多莉米雅 · 原创IP名器品牌</p>
+            <div class="hero-buttons">
+                <a href="#characters" class="btn btn-primary">探索角色</a>
+                <a href="#brand" class="btn btn-secondary">了解更多</a>
+            </div>
+        </div>
+        <div class="floating-lines">
+            <div class="floating-line"></div>
+            <div class="floating-line"></div>
+            <div class="floating-line"></div>
+            <div class="floating-line"></div>
+        </div>
+    </section>
+
+    <!-- Character Gallery -->
+    <section class="section" id="characters">
+        <h2 class="section-title fade-in">角色图鉴</h2>
+        <div class="section-line fade-in"></div>
+        <p class="section-subtitle fade-in">每一位角色，都是通往幻想世界的门票</p>
+        
+        <div class="character-grid">
+            <!-- D01 小多 -->
+            <div class="character-card fade-in" data-character="d01">
+                <img src="computer://imgs/260507_11_生图/高清2_D01.jpg" alt="小多" class="character-image">
+                <div class="character-info">
+                    <h3 class="character-name">D01 魅魔女孩小多</h3>
+                    <div class="character-tags">
+                        <span class="tag">#入门级</span>
+                        <span class="tag">#甜蜜陷阱</span>
+                    </div>
+                    <p class="character-desc">魅魔学院实战派，每一位体验者都欲罢不能的甜蜜陷阱艺术家。</p>
+                </div>
+            </div>
+
+            <!-- D03 美美 -->
+            <div class="character-card fade-in" data-character="d03">
+                <img src="computer://imgs/260507_11_生图/高清2_D03.jpg" alt="美美" class="character-image">
+                <div class="character-info">
+                    <h3 class="character-name">D03 长乳人妻美美</h3>
+                    <div class="character-tags">
+                        <span class="tag">#慢节奏</span>
+                        <span class="tag">#温柔治愈</span>
+                    </div>
+                    <p class="character-desc">月光治愈师，用最缓慢、最温柔的方式让每一颗疲惫的灵魂得到真正的休息。</p>
+                </div>
+            </div>
+
+            <!-- D04 亚子 -->
+            <div class="character-card fade-in" data-character="d04">
+                <img src="computer://imgs/260507_11_生图/高清2_D04.jpg" alt="亚子" class="character-image">
+                <div class="character-info">
+                    <h3 class="character-name">D04 SSR级辣妹亚子</h3>
+                    <div class="character-tags">
+                        <span class="tag">#进阶刺激</span>
+                        <span class="tag">#SSR稀有</span>
+                    </div>
+                    <p class="character-desc">前竞技场传奇，SSR级稀有存在。慵懒外表下藏着让所有挑战者颤抖的实力。</p>
+                </div>
+            </div>
+
+            <!-- D05 X -->
+            <div class="character-card fade-in" data-character="d05">
+                <img src="computer://imgs/260507_11_生图/高清2_D05.jpg" alt="X" class="character-image">
+                <div class="character-info">
+                    <h3 class="character-name">D05 谜之猫娘X</h3>
+                    <div class="character-tags">
+                        <span class="tag">#进阶平衡</span>
+                        <span class="tag">#神秘天才</span>
+                    </div>
+                    <p class="character-desc">多莉米雅研究中心的天才顾问，看似懵懂实则洞察一切的神秘猫娘。</p>
+                </div>
+            </div>
+
+            <!-- D06 SURI -->
+            <div class="character-card fade-in" data-character="d06">
+                <img src="computer://imgs/260507_11_生图/高清2_D06.jpg" alt="SURI" class="character-image">
+                <div class="character-info">
+                    <h3 class="character-name">D06 闷骚漫画家SURI</h3>
+                    <div class="character-tags">
+                        <span class="tag">#高刺激</span>
+                        <span class="tag">#闷骚社恐</span>
+                    </div>
+                    <p class="character-desc">成人漫画界禁忌级作家，笔下幻想王国的取材经历至今仍是谜……</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="section" id="products">
+        <h2 class="section-title fade-in">产品系列</h2>
+        <div class="section-line fade-in"></div>
+        <p class="section-subtitle fade-in">六大角色专属通道，感受不同刺激体验</p>
+        
+        <div class="product-grid">
+            <!-- D01 -->
+            <a href="#" class="product-card fade-in">
+                <div class="product-header">
+                    <span class="product-name">D01 魅魔女孩小多</span>
+                    <span class="product-type">肉轮榨取型</span>
+                </div>
+                <div class="product-params">
+                    <div class="param-item">
+                        <div class="param-label">硬度</div>
+                        <div class="param-value">-2</div>
+                    </div>
+                    <div class="param-item">
+                        <div class="param-label">重量</div>
+                        <div class="param-value">550g</div>
+                    </div>
+                    <div class="param-item">
+                        <div class="param-label">定位</div>
+                        <div class="param-value">入门平衡</div>
+                    </div>
+                </div>
+                <p class="product-desc">扭曲扁平通道设计，多重肉轮与肉脊构造，深处子宫口造型强化收束与吸附感。</p>
+            </a>
+
+            <!-- D03 -->
+            <a href="#" class="product-card fade-in">
+                <div class="product-header">
+                    <span class="product-name">D03 长乳人妻美美</span>
+                    <span class="product-type">双向螺旋型</span>
+                </div>
+                <div class="product-params">
+                    <div class="param-item">
+                        <div class="param-label">硬度</div>
+                        <div class="param-value">-2</div>
+                    </div>
+                    <div class="param-item">
+                        <div class="param-label">重量</div>
+                        <div class="param-value">520g</div>
+                    </div>
+                    <div class="param-item">
+                        <div class="param-label">定位</div>
+                        <div class="param-value">慢节奏体验</div>
+                    </div>
+                </div>
+                <p class="product-desc">双向螺旋结构打造持续挤压感，优化通道壁厚实现稳定深层包裹与贴合。</p>
+            </a>
+
+            <!-- D04 -->
+            <a href="#" class="product-card fade-in">
+                <div class="product-header">
+                    <span class="product-name">D04 SSR级辣妹亚子</span>
+                    <span class="product-type">螺旋刺激型</span>
+                </div>
+                <div class="product-params">
+                    <div class="param-item">
+                        <div class="param-label">硬度</div>
+                        <div class="param-value">-2</div>
+                    </div>
+                    <div class="param-item">
+                        <div class="param-label">重量</div>
+                        <div class="param-value">453g</div>
+                    </div>
+                    <div class="param-item">
+                        <div class="param-label">定位</div>
+                        <div class="param-value">进阶刺激</div>
+                    </div>
+                </div>
+                <p class="product-desc">纯螺旋纹理贯穿通道设计，连续扭转结构形成包裹与摩擦的变化，紧致通道结合负压结构。</p>
+            </a>
+
+            <!-- D05 -->
+            <a href="#" class="product-card fade-in">
+                <div class="product-header">
+                    <span class="product-name">D05 谜之猫娘X</span>
+                    <span class="product-type">多重子宫型</span>
+                </div>
+                <div class="product-params">
+                    <div class="param-item">
+                        <div class="param-label">硬度</div>
+                        <div class="param-value">-2</div>
+                    </div>
+                    <div class="param-item">
+                        <div class="param-label">重量</div>
+                        <div class="param-value">450g</div>
+                    </div>
+                    <div class="param-item">
+                        <div class="param-label">定位</div>
+                        <div class="param-value">进阶平衡</div>
+                    </div>
+                </div>
+                <p class="product-desc">多重子宫构造带来层次感的沉浸体验，神秘猫娘为你开启未知的感官之旅。</p>
+            </a>
+
+            <!-- D06 -->
+            <a href="#" class="product-card fade-in">
+                <div class="product-header">
+                    <span class="product-name">D06 闷骚漫画家SURI</span>
+                    <span class="product-type">肉脊刺激型</span>
+                </div>
+                <div class="product-params">
+                    <div class="param-item">
+                        <div class="param-label">硬度</div>
+                        <div class="param-value">-2</div>
+                    </div>
+                    <div class="param-item">
+                        <div class="param-label">重量</div>
+                        <div class="param-value">463g</div>
+                    </div>
+                    <div class="param-item">
+                        <div class="param-label">定位</div>
+                        <div class="param-value">进阶刺激</div>
+                    </div>
+                </div>
+                <p class="product-desc">极限密度结构为核心设计，高密度肉脊紧密排列形成持续且多方向叠加的强烈刺激反馈。</p>
+            </a>
+        </div>
+    </section>
+
+    <!-- Brand Story -->
+    <section class="section" id="brand">
+        <div class="brand-section fade-in">
+            <div class="brand-content">
+                <div class="brand-text">
+                    <h2 class="section-title" style="text-align:left;">关于 Dreamier FUX</h2>
+                    <p>Dreamier FUX（多莉米雅）是一个高端二次元名器品牌，由深圳市多莉米雅文化创意有限公司倾力打造，是中日合资的原创IP品牌。</p>
+                    <p>我们汇聚了来自中国与日本的优秀设计师与工程师，致力于将二次元角色的魅力通过精心设计的通道结构呈现给每一位用户。每一款产品都经过反复测试与优化，确保在安全性、舒适性和感官体验上达到最高标准。</p>
+                    <p>品牌旗下拥有多位原创角色IP，她们不仅仅是产品形象，更是拥有完整世界观和故事背景的虚拟存在。选择多莉米雅，不仅是选择一款产品，更是开启通往幻想世界的大门。</p>
+                </div>
+                <div class="brand-logo">
+                    <div class="brand-logo-display">Dreamier FUX</div>
+                    <p class="brand-tagline">多莉米雅 · 原创IP名器品牌</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section" id="contact">
+        <h2 class="section-title fade-in">联系我们</h2>
+        <div class="section-line fade-in"></div>
+        <p class="section-subtitle fade-in">商务合作 · 代理咨询 · 内容合作</p>
+        
+        <div class="contact-container">
+            <div class="contact-form fade-in" id="contactForm">
+                <form id="form">
+                    <div class="form-group">
+                        <label class="form-label">您的姓名</label>
+                        <input type="text" class="form-input" placeholder="请输入姓名" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">联系方式</label>
+                        <input type="text" class="form-input" placeholder="手机号/微信/邮箱" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">合作意向</label>
+                        <select class="form-select" required>
+                            <option value="">请选择合作类型</option>
+                            <option value="agent">代理合作</option>
+                            <option value="content">内容合作</option>
+                            <option value="media">媒体采访</option>
+                            <option value="other">其他咨询</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">留言内容</label>
+                        <textarea class="form-textarea" placeholder="请详细描述您的合作意向或问题..."></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">提交咨询</button>
+                </form>
+                <div class="form-success" id="formSuccess">
+                    <div class="success-icon">✓</div>
+                    <h3 class="success-title">提交成功！</h3>
+                    <p class="success-text">感谢您的咨询，我们会尽快与您联系。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-logo">Dreamier FUX</div>
+        <div class="footer-social">
+            <a href="#" class="social-icon" title="微信">微</a>
+            <a href="#" class="social-icon" title="微博">博</a>
+            <a href="#" class="social-icon" title="小红书">书</a>
+            <a href="#" class="social-icon" title="邮箱">✉</a>
+        </div>
+        <p class="footer-company">深圳多莉米雅文化创意有限公司</p>
+        <p class="footer-copyright">© 2024 Dreamier FUX. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Character Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal" id="modal">
+            <button class="modal-close" id="modalClose">×</button>
+            <div class="modal-content">
+                <img src="" alt="" class="modal-image" id="modalImage">
+                <div class="modal-details">
+                    <h2 class="modal-name" id="modalName"></h2>
+                    <div class="modal-tags" id="modalTags"></div>
+                    
+                    <div class="modal-section">
+                        <h4 class="modal-section-title">外观特征</h4>
+                        <p class="modal-section-content" id="modalAppearance"></p>
+                    </div>
+                    
+                    <div class="modal-section">
+                        <h4 class="modal-section-title">产品参数</h4>
+                        <div class="modal-params" id="modalParams"></div>
+                    </div>
+                    
+                    <div class="modal-section">
+                        <h4 class="modal-section-title">角色简介</h4>
+                        <p class="modal-section-content" id="modalDesc"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Character Data
+        const characterData = {
+            d01: {
+                name: 'D01 魅魔女孩小多',
+                image: 'computer://imgs/260507_11_生图/高清2_D01.jpg',
+                tags: ['#入门级', '#甜蜜陷阱'],
+                appearance: '浅金色双马尾，发尾带有深色挑染；蓝绿色眼眸，眼尾上扬带着魅惑感；白色毛绒披肩；黑色紧身包臀吊带裙；金色项圈',
+                params: {
+                    hardness: '-2',
+                    weight: '550g',
+                    structure: '双层构造',
+                    channel: '肉轮榨取型'
+                },
+                desc: '"啊咧～被发现了吗？"魅魔学院实战派，每一位体验者都欲罢不能的甜蜜陷阱艺术家。小多设计的"令人焦躁难耐"系列通道，以其独特的多层褶皱结构和温控系统闻名于业内。'
+            },
+            d03: {
+                name: 'D03 长乳人妻美美',
+                image: 'computer://imgs/260507_11_生图/高清2_D03.jpg',
+                tags: ['#慢节奏', '#温柔治愈'],
+                appearance: '渐变紫粉长直发，刘海处带有浅粉色挑染；黑色半脸口罩（核心标识）；弯成月牙状的眼睛；露肩紧身衣；黑色高腰短裤；半透明黑色长筒袜',
+                params: {
+                    hardness: '-2',
+                    weight: '520g',
+                    structure: '双层构造',
+                    channel: '双向螺旋型'
+                },
+                desc: '"你看起来很累呢。"月光治愈师美美，用最缓慢、最温柔的方式，让每一个疲惫的灵魂得到真正的休息。传说中只有在月圆之夜才会出现的神秘存在。'
+            },
+            d04: {
+                name: 'D04 SSR级辣妹亚子',
+                image: 'computer://imgs/260507_11_生图/高清2_D04.jpg',
+                tags: ['#进阶刺激', '#SSR稀有'],
+                appearance: '蓬松凌乱的奶白色长发；粉白渐变的猫耳；细长的红色眼瞳半眯着；黑白撞色的紧身服饰；蓬松的白色大尾巴',
+                params: {
+                    hardness: '-2',
+                    weight: '453g',
+                    structure: '双层构造',
+                    channel: '螺旋刺激型'
+                },
+                desc: '"哼，别以为我会手下留情哦。"前魔界竞技场传奇，SSR级稀有存在。曾经创造连续击败99位挑战者的恐怖记录。慵懒外表下藏着让所有挑战者颤抖的实力。'
+            },
+            d05: {
+                name: 'D05 谜之猫娘X',
+                image: 'computer://imgs/260507_11_生图/高清2_D05.jpg',
+                tags: ['#进阶平衡', '#神秘天才'],
+                appearance: '绿色双马尾卷发；圆睁的黄绿色眼眸带懵懂感；细框眼镜；米黄色紧身针织毛衣，衣身有清晰的竖坑条肌理；灰绿色厚底拖鞋',
+                params: {
+                    hardness: '-2',
+                    weight: '450g',
+                    structure: '双层构造',
+                    channel: '多重子宫型'
+                },
+                desc: '"嗯……所以结论是……"多莉米雅研究中心的天才顾问，拥有远超常人的"感知天赋"。看似懵懂实则洞察一切，关于她的真实身份和来历至今仍是谜……'
+            },
+            d06: {
+                name: 'D06 闷骚漫画家SURI',
+                image: 'computer://imgs/260507_11_生图/高清2_D06.jpg',
+                tags: ['#高刺激', '#闷骚社恐'],
+                appearance: '蓬松的浅粉色齐肩短发；头顶左侧带有金色圆环装饰的深棕色兽耳，右侧兽耳上别着粉色蝴蝶结；青绿色呆毛；黄色底红色图案的短款上衣；酒红色蝙蝠袖外套',
+                params: {
+                    hardness: '-2',
+                    weight: '463g',
+                    structure: '双层构造',
+                    channel: '肉脊刺激型'
+                },
+                desc: 'SURI——《月夜幻想谭》的原作者，成人向漫画界禁忌级的存在。笔下创造了无数让人脸红心跳的场景，而她的创作"参考资料"究竟是什么，至今仍是谜……'
+            }
+        };
+
+        // Navigation scroll effect
+        const nav = document.getElementById('nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        hamburger.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // Modal functionality
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modal = document.getElementById('modal');
+        const modalClose = document.getElementById('modalClose');
+        const modalImage = document.getElementById('modalImage');
+        const modalName = document.getElementById('modalName');
+        const modalTags = document.getElementById('modalTags');
+        const modalAppearance = document.getElementById('modalAppearance');
+        const modalParams = document.getElementById('modalParams');
+        const modalDesc = document.getElementById('modalDesc');
+
+        function openModal(characterId) {
+            const data = characterData[characterId];
+            if (!data) return;
+
+            modalImage.src = data.image;
+            modalImage.alt = data.name;
+            modalName.textContent = data.name;
+            
+            modalTags.innerHTML = data.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
+            modalAppearance.textContent = data.appearance;
+            
+            modalParams.innerHTML = `
+                <div class="modal-param">
+                    <div class="modal-param-label">硬度</div>
+                    <div class="modal-param-value">${data.params.hardness}</div>
+                </div>
+                <div class="modal-param">
+                    <div class="modal-param-label">重量</div>
+                    <div class="modal-param-value">${data.params.weight}</div>
+                </div>
+                <div class="modal-param">
+                    <div class="modal-param-label">构造</div>
+                    <div class="modal-param-value">${data.params.structure}</div>
+                </div>
+                <div class="modal-param">
+                    <div class="modal-param-label">通道类型</div>
+                    <div class="modal-param-value">${data.params.channel}</div>
+                </div>
+            `;
+            
+            modalDesc.textContent = data.desc;
+            
+            modalOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modalOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Character card click handlers
+        document.querySelectorAll('.character-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const characterId = card.dataset.character;
+                openModal(characterId);
+            });
+        });
+
+        modalClose.addEventListener('click', closeModal);
+        
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) {
+                closeModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
+                closeModal();
+            }
+        });
+
+        // Contact form submission
+        const form = document.getElementById('form');
+        const formSuccess = document.getElementById('formSuccess');
+        
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            form.style.display = 'none';
+            formSuccess.classList.add('show');
+        });
+
+        // Scroll animation
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        fadeElements.forEach(element => {
+            observer.observe(element);
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
