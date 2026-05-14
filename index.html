@@ -963,7 +963,141 @@
                 grid-template-columns: 1fr 1fr;
             }
         }
-    </style>
+    
+        /* Comic Accordion Styles */
+        .comic-accordion {
+            margin-top: 1.5rem;
+            border-radius: 16px;
+            overflow: hidden;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+        }
+        
+        .comic-accordion > details {
+            position: relative;
+        }
+        
+        .comic-accordion > details:not(:last-child) {
+            border-bottom: 1px solid var(--glass-border);
+        }
+        
+        .comic-accordion summary {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.5rem 2rem;
+            cursor: pointer;
+            list-style: none;
+            -webkit-user-select: none;
+            user-select: none;
+            transition: background 0.3s ease;
+            background: rgba(20, 20, 30, 0.6);
+        }
+        
+        .comic-accordion summary::-webkit-details-marker {
+            display: none;
+        }
+        
+        .comic-accordion summary:hover {
+            background: rgba(255, 45, 149, 0.1);
+        }
+        
+        .comic-accordion summary .chapter-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .comic-accordion summary .chapter-badge {
+            width: 8px;
+            height: 40px;
+            border-radius: 4px;
+            background: linear-gradient(180deg, var(--neon-pink), var(--neon-purple));
+            flex-shrink: 0;
+        }
+        
+        .comic-accordion summary .chapter-title-text {
+            font-size: 1.3rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .comic-accordion summary .chapter-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+        }
+        
+        .comic-accordion summary .chapter-arrow {
+            font-size: 1.2rem;
+            color: var(--neon-pink);
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+        }
+        
+        .comic-accordion > details[open] summary {
+            background: rgba(255, 45, 149, 0.15);
+            border-bottom: 1px solid var(--glass-border);
+        }
+        
+        .comic-accordion > details[open] summary .chapter-arrow {
+            transform: rotate(180deg);
+        }
+        
+        .comic-accordion .comic-gallery-wrapper {
+            padding: 2rem;
+            background: rgba(10, 10, 15, 0.5);
+            animation: accordionOpen 0.3s ease;
+        }
+        
+        @keyframes accordionOpen {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Hide original comic-block styles when inside accordion */
+        .comic-accordion .comic-block {
+            margin-top: 0;
+            padding: 0;
+            background: transparent;
+            border: none;
+            border-radius: 0;
+        }
+        
+        .comic-accordion .comic-chapter-title,
+        .comic-accordion .comic-desc {
+            display: none;
+        }
+        
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            .comic-accordion summary {
+                padding: 1.25rem 1.5rem;
+            }
+            
+            .comic-accordion summary .chapter-title-text {
+                font-size: 1.1rem;
+            }
+            
+            .comic-accordion summary .chapter-desc {
+                font-size: 0.8rem;
+            }
+            
+            .comic-accordion .comic-gallery-wrapper {
+                padding: 1.25rem;
+            }
+        }
+
+        </style>
 </head>
 <body>
     <!-- Navigation -->
@@ -1231,437 +1365,154 @@
         <div class="section-line fade-in"></div>
         <p class="section-subtitle fade-in">D05 谜之猫娘X · 古风暗黑系列 · 融合《聂小倩》意象</p>
 
-        <!-- 序章 -->
-        <div class="comic-block fade-in">
-            <h3 class="comic-chapter-title">序章 · 寒灯寺</h3>
-            <p class="comic-desc">落魄书生宁无咎在雨夜误入荒废的寒灯寺，遇见了被千年妖物枯骨禅师控制的狐族少女白绛……</p>
-            <div class="comic-gallery">
-                <div class="comic-page">
-                    <img src="images/comic/寒灯寺序章古风_第1页.jpg" alt="序章第1页" loading="lazy">
-                    <span class="comic-page-num">1</span>
+        <!-- 漫画展示区 - 可折叠手风琴 -->
+        <div class="comic-accordion">
+            
+            <!-- 序章 -->
+            <details>
+                <summary>
+                    <div class="chapter-info">
+                        <div class="chapter-badge"></div>
+                        <div>
+                            <div class="chapter-title-text">序章 · 寒灯寺</div>
+                            <div class="chapter-desc">落魄书生宁无咎在雨夜误入荒废的寒灯寺...</div>
+                        </div>
+                    </div>
+                    <span class="chapter-arrow">▼</span>
+                </summary>
+                <div class="comic-gallery-wrapper">
+                    <div class="comic-gallery">
+                        <div class="comic-page">
+                            <img src="images/comic/寒灯寺序章古风_第1页.jpg" alt="序章第1页" loading="lazy">
+                            <span class="comic-page-num">1</span>
+                        </div>
+                        <div class="comic-page">
+                            <img src="images/comic/寒灯寺序章古风_第2页.jpg" alt="序章第2页" loading="lazy">
+                            <span class="comic-page-num">2</span>
+                        </div>
+                        <div class="comic-page">
+                            <img src="images/comic/寒灯寺序章古风_第3页.jpg" alt="序章第3页" loading="lazy">
+                            <span class="comic-page-num">3</span>
+                        </div>
+                        <div class="comic-page">
+                            <img src="images/comic/寒灯寺序章古风_第4页.jpg" alt="序章第4页" loading="lazy">
+                            <span class="comic-page-num">4</span>
+                        </div>
+                        <div class="comic-page">
+                            <img src="images/comic/寒灯寺序章古风_第5页.jpg" alt="序章第5页" loading="lazy">
+                            <span class="comic-page-num">5</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="comic-page">
-                    <img src="images/comic/寒灯寺序章古风_第2页.jpg" alt="序章第2页" loading="lazy">
-                    <span class="comic-page-num">2</span>
+            </details>
+            
+            <!-- 第一章 -->
+            <details>
+                <summary>
+                    <div class="chapter-info">
+                        <div class="chapter-badge"></div>
+                        <div>
+                            <div class="chapter-title-text">第一章 · 枯寺</div>
+                            <div class="chapter-desc">幽深回廊尽头，枯骨禅师露出真面目...</div>
+                        </div>
+                    </div>
+                    <span class="chapter-arrow">▼</span>
+                </summary>
+                <div class="comic-gallery-wrapper">
+                    <div class="comic-gallery">
+                        <div class="comic-page">
+                            <img src="images/comic/寒灯寺第一章_第1页.jpg" alt="第一章第1页" loading="lazy">
+                            <span class="comic-page-num">1</span>
+                        </div>
+                        <div class="comic-page">
+                            <img src="images/comic/寒灯寺第一章_第2页.jpg" alt="第一章第2页" loading="lazy">
+                            <span class="comic-page-num">2</span>
+                        </div>
+                        <div class="comic-page">
+                            <img src="images/comic/寒灯寺第一章_第3页.jpg" alt="第一章第3页" loading="lazy">
+                            <span class="comic-page-num">3</span>
+                        </div>
+                        <div class="comic-page">
+                            <img src="images/comic/寒灯寺第一章_第4页.jpg" alt="第一章第4页" loading="lazy">
+                            <span class="comic-page-num">4</span>
+                        </div>
+                        <div class="comic-page">
+                            <img src="images/comic/寒灯寺第一章_第5页.jpg" alt="第一章第5页" loading="lazy">
+                            <span class="comic-page-num">5</span>
+                        </div>
+                        <div class="comic-page">
+                            <img src="images/comic/寒灯寺第一章_第6页.jpg" alt="第一章第6页" loading="lazy">
+                            <span class="comic-page-num">6</span>
+                        </div>
+                        <div class="comic-page">
+                            <img src="images/comic/寒灯寺第一章_第7页.jpg" alt="第一章第7页" loading="lazy">
+                            <span class="comic-page-num">7</span>
+                        </div>
+                        <div class="comic-page">
+                            <img src="images/comic/寒灯寺第一章_第8页.jpg" alt="第一章第8页" loading="lazy">
+                            <span class="comic-page-num">8</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="comic-page">
-                    <img src="images/comic/寒灯寺序章古风_第3页.jpg" alt="序章第3页" loading="lazy">
-                    <span class="comic-page-num">3</span>
+            </details>
+            
+            <!-- 第二章 -->
+            <details>
+                <summary>
+                    <div class="chapter-info">
+                        <div class="chapter-badge"></div>
+                        <div>
+                            <div class="chapter-title-text">第二章 · 囚笼之花</div>
+                            <div class="chapter-desc">待宁无咎与白绛踏入那扇门扉，命运之花悄然绽放...</div>
+                        </div>
+                    </div>
+                    <span class="chapter-arrow">▼</span>
+                </summary>
+                <div class="comic-gallery-wrapper">
+                    <div class="comic-gallery">
+                        <div class="comic-page">
+                            <img src="images/comic/寒灯寺第二章_第1页.jpg" alt="第二章第1页" loading="lazy">
+                            <span class="comic-page-num">1</span>
+                        </div>
+                        <div class="comic-page">
+                            <img src="images/comic/寒灯寺第二章_第2页.jpg" alt="第二章第2页" loading="lazy">
+                            <span class="comic-page-num">2</span>
+                        </div>
+                        <div class="comic-page">
+                            <img src="images/comic/寒灯寺第二章_第3页.jpg" alt="第二章第3页" loading="lazy">
+                            <span class="comic-page-num">3</span>
+                        </div>
+                        <div class="comic-page">
+                            <img src="images/comic/寒灯寺第二章_第4页.jpg" alt="第二章第4页" loading="lazy">
+                            <span class="comic-page-num">4</span>
+                        </div>
+                        <div class="comic-page">
+                            <img src="images/comic/寒灯寺第二章_第5页.jpg" alt="第二章第5页" loading="lazy">
+                            <span class="comic-page-num">5</span>
+                        </div>
+                        <div class="comic-page">
+                            <img src="images/comic/寒灯寺第二章_第6页.jpg" alt="第二章第6页" loading="lazy">
+                            <span class="comic-page-num">6</span>
+                        </div>
+                        <div class="comic-page">
+                            <img src="images/comic/寒灯寺第二章_第7页.jpg" alt="第二章第7页" loading="lazy">
+                            <span class="comic-page-num">7</span>
+                        </div>
+                        <div class="comic-page">
+                            <img src="images/comic/寒灯寺第二章_第8页.jpg" alt="第二章第8页" loading="lazy">
+                            <span class="comic-page-num">8</span>
+                        </div>
+                        <div class="comic-page">
+                            <img src="images/comic/寒灯寺第二章_第9页.jpg" alt="第二章第9页" loading="lazy">
+                            <span class="comic-page-num">9</span>
+                        </div>
+                        <div class="comic-page">
+                            <img src="images/comic/寒灯寺第二章_第10页.jpg" alt="第二章第10页" loading="lazy">
+                            <span class="comic-page-num">10</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="comic-page">
-                    <img src="images/comic/寒灯寺序章古风_第4页.jpg" alt="序章第4页" loading="lazy">
-                    <span class="comic-page-num">4</span>
-                </div>
-                <div class="comic-page">
-                    <img src="images/comic/寒灯寺序章古风_第5页.jpg" alt="序章第5页" loading="lazy">
-                    <span class="comic-page-num">5</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 第一章 -->
-        <div class="comic-block fade-in">
-            <h3 class="comic-chapter-title">第一章 · 枯寺</h3>
-            <p class="comic-desc">幽深回廊尽头，枯骨禅师露出真面目——"心性纯善，不贪不惧。是个上好的……祭品。"</p>
-            <div class="comic-gallery">
-                <div class="comic-page">
-                    <img src="images/comic/寒灯寺第一章_第1页.jpg" alt="第一章第1页" loading="lazy">
-                    <span class="comic-page-num">1</span>
-                </div>
-                <div class="comic-page">
-                    <img src="images/comic/寒灯寺第一章_第2页.jpg" alt="第一章第2页" loading="lazy">
-                    <span class="comic-page-num">2</span>
-                </div>
-                <div class="comic-page">
-                    <img src="images/comic/寒灯寺第一章_第3页.jpg" alt="第一章第3页" loading="lazy">
-                    <span class="comic-page-num">3</span>
-                </div>
-                <div class="comic-page">
-                    <img src="images/comic/寒灯寺第一章_第4页.jpg" alt="第一章第4页" loading="lazy">
-                    <span class="comic-page-num">4</span>
-                </div>
-                <div class="comic-page">
-                    <img src="images/comic/寒灯寺第一章_第5页.jpg" alt="第一章第5页" loading="lazy">
-                    <span class="comic-page-num">5</span>
-                </div>
-                <div class="comic-page">
-                    <img src="images/comic/寒灯寺第一章_第6页.jpg" alt="第一章第6页" loading="lazy">
-                    <span class="comic-page-num">6</span>
-                </div>
-                <div class="comic-page">
-                    <img src="images/comic/寒灯寺第一章_第7页.jpg" alt="第一章第7页" loading="lazy">
-                    <span class="comic-page-num">7</span>
-                </div>
-                <div class="comic-page">
-                    <img src="images/comic/寒灯寺第一章_第8页.jpg" alt="第一章第8页" loading="lazy">
-                    <span class="comic-page-num">8</span>
-                </div>
-            </div>
-        </div>
-        <div class="comic-block fade-in">
-            <h3 class="comic-chapter-title">第二章 · 囚笼之花</h3>
-            <p class="comic-desc">待宁无咎与白绛踏入那扇门扉，囚笼中的命运之花悄然绽放……</p>
-            <div class="comic-gallery">
-                <div class="comic-page">
-                    <img src="images/comic/寒灯寺第二章_第1页.jpg" alt="第二章第1页" loading="lazy">
-                    <span class="comic-page-num">1</span>
-                </div>
-                <div class="comic-page">
-                    <img src="images/comic/寒灯寺第二章_第2页.jpg" alt="第二章第2页" loading="lazy">
-                    <span class="comic-page-num">2</span>
-                </div>
-                <div class="comic-page">
-                    <img src="images/comic/寒灯寺第二章_第3页.jpg" alt="第二章第3页" loading="lazy">
-                    <span class="comic-page-num">3</span>
-                </div>
-                <div class="comic-page">
-                    <img src="images/comic/寒灯寺第二章_第4页.jpg" alt="第二章第4页" loading="lazy">
-                    <span class="comic-page-num">4</span>
-                </div>
-                <div class="comic-page">
-                    <img src="images/comic/寒灯寺第二章_第5页.jpg" alt="第二章第5页" loading="lazy">
-                    <span class="comic-page-num">5</span>
-                </div>
-                <div class="comic-page">
-                    <img src="images/comic/寒灯寺第二章_第6页.jpg" alt="第二章第6页" loading="lazy">
-                    <span class="comic-page-num">6</span>
-                </div>
-                <div class="comic-page">
-                    <img src="images/comic/寒灯寺第二章_第7页.jpg" alt="第二章第7页" loading="lazy">
-                    <span class="comic-page-num">7</span>
-                </div>
-                <div class="comic-page">
-                    <img src="images/comic/寒灯寺第二章_第8页.jpg" alt="第二章第8页" loading="lazy">
-                    <span class="comic-page-num">8</span>
-                </div>
-                <div class="comic-page">
-                    <img src="images/comic/寒灯寺第二章_第9页.jpg" alt="第二章第9页" loading="lazy">
-                    <span class="comic-page-num">9</span>
-                </div>
-                <div class="comic-page">
-                    <img src="images/comic/寒灯寺第二章_第10页.jpg" alt="第二章第10页" loading="lazy">
-                    <span class="comic-page-num">10</span>
-                </div>
-            </div>
+            </details>
+            
         </div>
     </section>
-
-    <!-- Contact Section -->
-    <section class="section" id="contact">
-        <h2 class="section-title fade-in">联系我们</h2>
-        <div class="section-line fade-in"></div>
-        <p class="section-subtitle fade-in">商务合作 · 代理咨询 · 内容合作</p>
-        
-        <div class="contact-container">
-            <div class="contact-info fade-in" style="margin-bottom: 2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
-                <div style="background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 12px; padding: 1.5rem; text-align: center; backdrop-filter: blur(10px);">
-                    <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">💬</div>
-                    <div style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.3rem;">微信</div>
-                    <div style="color: var(--neon-pink); font-weight: 600; font-size: 1rem;">15607979745</div>
-                </div>
-                <div style="background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 12px; padding: 1.5rem; text-align: center; backdrop-filter: blur(10px);">
-                    <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">📞</div>
-                    <div style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.3rem;">电话</div>
-                    <div style="color: var(--neon-pink); font-weight: 600; font-size: 1rem;">18948330114</div>
-                </div>
-                <div style="background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 12px; padding: 1.5rem; text-align: center; backdrop-filter: blur(10px);">
-                    <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">📧</div>
-                    <div style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.3rem;">邮箱</div>
-                    <div style="color: var(--neon-pink); font-weight: 600; font-size: 0.9rem;">dandan910223@qq.com</div>
-                </div>
-            </div>
-            <div class="contact-form fade-in" id="contactForm">
-                <form id="form">
-                    <div class="form-group">
-                        <label class="form-label">您的姓名</label>
-                        <input type="text" class="form-input" placeholder="请输入姓名" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">联系方式</label>
-                        <input type="text" class="form-input" placeholder="手机号/微信/邮箱" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">合作意向</label>
-                        <select class="form-select" required>
-                            <option value="">请选择合作类型</option>
-                            <option value="agent">代理合作</option>
-                            <option value="content">内容合作</option>
-                            <option value="media">媒体采访</option>
-                            <option value="other">其他咨询</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">留言内容</label>
-                        <textarea class="form-textarea" placeholder="请详细描述您的合作意向或问题..."></textarea>
-                    </div>
-                    <button type="submit" class="submit-btn">提交咨询</button>
-                </form>
-                <div class="form-success" id="formSuccess">
-                    <div class="success-icon">✓</div>
-                    <h3 class="success-title">提交成功！</h3>
-                    <p class="success-text">感谢您的咨询，我们会尽快与您联系。</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-logo">Dreamier FUX</div>
-        <div class="footer-social">
-            <a href="#" class="social-icon" title="微信">微</a>
-            <a href="#" class="social-icon" title="微博">博</a>
-            <a href="#" class="social-icon" title="小红书">书</a>
-            <a href="#" class="social-icon" title="邮箱">✉</a>
-        </div>
-        <p class="footer-company">深圳多莉米雅文化创意有限公司</p>
-        <p class="footer-copyright">© 2024 Dreamier FUX. All Rights Reserved.</p>
-    </footer>
-
-    <!-- Character Modal -->
-    <div class="modal-overlay" id="modalOverlay">
-        <div class="modal" id="modal">
-            <button class="modal-close" id="modalClose">×</button>
-            <div class="modal-content">
-                <img src="" alt="" class="modal-image" id="modalImage">
-                <div class="modal-details">
-                    <h2 class="modal-name" id="modalName"></h2>
-                    <div class="modal-tags" id="modalTags"></div>
-                    
-                    <div class="modal-section">
-                        <h4 class="modal-section-title">外观特征</h4>
-                        <p class="modal-section-content" id="modalAppearance"></p>
-                    </div>
-                    
-                    <div class="modal-section">
-                        <h4 class="modal-section-title">产品参数</h4>
-                        <div class="modal-params" id="modalParams"></div>
-                    </div>
-                    
-                    <div class="modal-section">
-                        <h4 class="modal-section-title">角色简介</h4>
-                        <p class="modal-section-content" id="modalDesc"></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // Character Data
-        const characterData = {
-            d01: {
-                name: 'D01 魅魔女孩小多',
-                image: 'images/高清2_D01.jpg',
-                tags: ['#入门级', '#甜蜜陷阱'],
-                appearance: '浅金色双马尾，发尾带有深色挑染；蓝绿色眼眸，眼尾上扬带着魅惑感；白色毛绒披肩；黑色紧身包臀吊带裙；金色项圈',
-                params: {
-                    hardness: '-2',
-                    weight: '550g',
-                    structure: '双层构造',
-                    channel: '肉轮榨取型'
-                },
-                desc: '"啊咧～被发现了吗？"魅魔学院实战派，每一位体验者都欲罢不能的甜蜜陷阱艺术家。小多设计的"令人焦躁难耐"系列通道，以其独特的多层褶皱结构和温控系统闻名于业内。'
-            },
-            d03: {
-                name: 'D03 长乳人妻美美',
-                image: 'images/高清2_D03.jpg',
-                tags: ['#慢节奏', '#温柔治愈'],
-                appearance: '渐变紫粉长直发，刘海处带有浅粉色挑染；黑色半脸口罩（核心标识）；弯成月牙状的眼睛；露肩紧身衣；黑色高腰短裤；半透明黑色长筒袜',
-                params: {
-                    hardness: '-2',
-                    weight: '520g',
-                    structure: '双层构造',
-                    channel: '双向螺旋型'
-                },
-                desc: '"你看起来很累呢。"月光治愈师美美，用最缓慢、最温柔的方式，让每一个疲惫的灵魂得到真正的休息。传说中只有在月圆之夜才会出现的神秘存在。'
-            },
-            d04: {
-                name: 'D04 SSR级辣妹亚子',
-                image: 'images/高清2_D04.jpg',
-                tags: ['#进阶刺激', '#SSR稀有'],
-                appearance: '蓬松凌乱的奶白色长发；粉白渐变的猫耳；细长的红色眼瞳半眯着；黑白撞色的紧身服饰；蓬松的白色大尾巴',
-                params: {
-                    hardness: '-2',
-                    weight: '453g',
-                    structure: '双层构造',
-                    channel: '螺旋刺激型'
-                },
-                desc: '"哼，别以为我会手下留情哦。"前魔界竞技场传奇，SSR级稀有存在。曾经创造连续击败99位挑战者的恐怖记录。慵懒外表下藏着让所有挑战者颤抖的实力。'
-            },
-            d05: {
-                name: 'D05 谜之猫娘X',
-                image: 'images/高清2_D05.jpg',
-                tags: ['#进阶平衡', '#神秘天才'],
-                appearance: '绿色双马尾卷发；圆睁的黄绿色眼眸带懵懂感；细框眼镜；米黄色紧身针织毛衣，衣身有清晰的竖坑条肌理；灰绿色厚底拖鞋',
-                params: {
-                    hardness: '-2',
-                    weight: '450g',
-                    structure: '双层构造',
-                    channel: '多重子宫型'
-                },
-                desc: '"嗯……所以结论是……"多莉米雅研究中心的天才顾问，拥有远超常人的"感知天赋"。看似懵懂实则洞察一切，关于她的真实身份和来历至今仍是谜……'
-            },
-            d06: {
-                name: 'D06 闷骚漫画家SURI',
-                image: 'images/高清2_D06.jpg',
-                tags: ['#高刺激', '#闷骚社恐'],
-                appearance: '蓬松的浅粉色齐肩短发；头顶左侧带有金色圆环装饰的深棕色兽耳，右侧兽耳上别着粉色蝴蝶结；青绿色呆毛；黄色底红色图案的短款上衣；酒红色蝙蝠袖外套',
-                params: {
-                    hardness: '-2',
-                    weight: '463g',
-                    structure: '双层构造',
-                    channel: '肉脊刺激型'
-                },
-                desc: 'SURI——《月夜幻想谭》的原作者，成人向漫画界禁忌级的存在。笔下创造了无数让人脸红心跳的场景，而她的创作"参考资料"究竟是什么，至今仍是谜……'
-            }
-        };
-
-        // Navigation scroll effect
-        const nav = document.getElementById('nav');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
-            }
-        });
-
-        // Mobile menu toggle
-        const hamburger = document.getElementById('hamburger');
-        const mobileMenu = document.getElementById('mobileMenu');
-        
-        hamburger.addEventListener('click', () => {
-            mobileMenu.classList.toggle('active');
-        });
-
-        // Close mobile menu when clicking a link
-        document.querySelectorAll('.mobile-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.remove('active');
-            });
-        });
-
-        // Modal functionality
-        const modalOverlay = document.getElementById('modalOverlay');
-        const modal = document.getElementById('modal');
-        const modalClose = document.getElementById('modalClose');
-        const modalImage = document.getElementById('modalImage');
-        const modalName = document.getElementById('modalName');
-        const modalTags = document.getElementById('modalTags');
-        const modalAppearance = document.getElementById('modalAppearance');
-        const modalParams = document.getElementById('modalParams');
-        const modalDesc = document.getElementById('modalDesc');
-
-        function openModal(characterId) {
-            const data = characterData[characterId];
-            if (!data) return;
-
-            modalImage.src = data.image;
-            modalImage.alt = data.name;
-            modalName.textContent = data.name;
-            
-            modalTags.innerHTML = data.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
-            modalAppearance.textContent = data.appearance;
-            
-            modalParams.innerHTML = `
-                <div class="modal-param">
-                    <div class="modal-param-label">硬度</div>
-                    <div class="modal-param-value">${data.params.hardness}</div>
-                </div>
-                <div class="modal-param">
-                    <div class="modal-param-label">重量</div>
-                    <div class="modal-param-value">${data.params.weight}</div>
-                </div>
-                <div class="modal-param">
-                    <div class="modal-param-label">构造</div>
-                    <div class="modal-param-value">${data.params.structure}</div>
-                </div>
-                <div class="modal-param">
-                    <div class="modal-param-label">通道类型</div>
-                    <div class="modal-param-value">${data.params.channel}</div>
-                </div>
-            `;
-            
-            modalDesc.textContent = data.desc;
-            
-            modalOverlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeModal() {
-            modalOverlay.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        // Character card click handlers
-        document.querySelectorAll('.character-card').forEach(card => {
-            card.addEventListener('click', () => {
-                const characterId = card.dataset.character;
-                openModal(characterId);
-            });
-        });
-
-        modalClose.addEventListener('click', closeModal);
-        
-        modalOverlay.addEventListener('click', (e) => {
-            if (e.target === modalOverlay) {
-                closeModal();
-            }
-        });
-
-        // Close modal with Escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
-                closeModal();
-            }
-        });
-
-        // Contact form submission
-        const form = document.getElementById('form');
-        const formSuccess = document.getElementById('formSuccess');
-        
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            form.style.display = 'none';
-            formSuccess.classList.add('show');
-        });
-
-        // Scroll animation
-        const fadeElements = document.querySelectorAll('.fade-in');
-        
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-
-        fadeElements.forEach(element => {
-            observer.observe(element);
-        });
-
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-    </script>
-</body>
-</html>
