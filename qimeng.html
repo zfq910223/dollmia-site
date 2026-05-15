@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>绮梦花庄 · 原创漫画 | Dreamier FUX</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #0a0a0f;
+            --bg-card: rgba(20, 20, 30, 0.8);
+            --neon-pink: #ff2d95;
+            --neon-purple: #a855f7;
+            --neon-blue: #06b6d4;
+            --neon-gold: #f59e0b;
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1aa;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 10, 15, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .nav-logo {
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-decoration: none;
+            background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--neon-pink);
+        }
+
+        .nav-links a.active {
+            color: var(--neon-pink);
+        }
+
+        .back-btn {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .back-btn:hover {
+            color: var(--neon-blue);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 120px 2rem 60px;
+            text-align: center;
+            background: linear-gradient(135deg, 
+                rgba(245, 158, 11, 0.15) 0%, 
+                rgba(255, 45, 149, 0.1) 50%, 
+                rgba(168, 85, 247, 0.15) 100%);
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at 50% 0%, rgba(245, 158, 11, 0.2) 0%, transparent 60%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--neon-gold), var(--neon-pink), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 30px rgba(245, 158, 11, 0.4));
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-desc {
+            max-width: 600px;
+            margin: 0 auto;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Comic Section */
+        .comic-section {
+            padding: 60px 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .chapter-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--neon-gold), var(--neon-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .chapter-desc {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        .comic-gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .comic-page {
+            position: relative;
+            max-width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .comic-page:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(245, 158, 11, 0.2);
+        }
+
+        .comic-page img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
+
+        .comic-page-num {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 2rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .footer a {
+            color: var(--neon-pink);
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav {
+                padding: 1rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding: 100px 1rem 40px;
+            }
+
+            .comic-section {
+                padding: 40px 1rem;
+            }
+
+            .comic-page {
+                border-radius: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="index.html" class="nav-logo">Dreamier FUX</a>
+        <ul class="nav-links">
+            <li><a href="index.html">首页</a></li>
+            <li><a href="index.html#characters">角色图鉴</a></li>
+            <li><a href="index.html#products">产品系列</a></li>
+            <li><a href="index.html#comic">寒灯绮谭</a></li>
+            <li><a href="qimeng.html" class="active">绮梦花庄</a></li>
+        </ul>
+        <a href="index.html" class="back-btn">← 返回首页</a>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">绮梦花庄</h1>
+            <p class="hero-subtitle">原创韩漫 · 现代都市系列</p>
+            <p class="hero-desc">当梦境与现实交织，花庄的秘密缓缓揭开...</p>
+        </div>
+    </header>
+
+    <section class="comic-section">
+        <h2 class="chapter-title">序章</h2>
+        <p class="chapter-desc">平凡的都市生活中，一座神秘的花庄悄然出现。<br>踏入其中的主角，将迎来怎样的命运？</p>
+        
+        <div class="comic-gallery">
+            <div class="comic-page">
+                <img loading="lazy" decoding="async" src="images/comic/qimeng/绮梦花庄序章_第1页.jpg" alt="序章第1页">
+                <span class="comic-page-num">1</span>
+            </div>
+            <div class="comic-page">
+                <img loading="lazy" decoding="async" src="images/comic/qimeng/绮梦花庄序章_第2页.jpg" alt="序章第2页">
+                <span class="comic-page-num">2</span>
+            </div>
+            <div class="comic-page">
+                <img loading="lazy" decoding="async" src="images/comic/qimeng/绮梦花庄序章_第3页.jpg" alt="序章第3页">
+                <span class="comic-page-num">3</span>
+            </div>
+            <div class="comic-page">
+                <img loading="lazy" decoding="async" src="images/comic/qimeng/绮梦花庄序章_第4页.jpg" alt="序章第4页">
+                <span class="comic-page-num">4</span>
+            </div>
+            <div class="comic-page">
+                <img loading="lazy" decoding="async" src="images/comic/qimeng/绮梦花庄序章_第5页.jpg" alt="序章第5页">
+                <span class="comic-page-num">5</span>
+            </div>
+            <div class="comic-page">
+                <img loading="lazy" decoding="async" src="images/comic/qimeng/绮梦花庄序章_第6页.jpg" alt="序章第6页">
+                <span class="comic-page-num">6</span>
+            </div>
+            <div class="comic-page">
+                <img loading="lazy" decoding="async" src="images/comic/qimeng/绮梦花庄序章_第7页.jpg" alt="序章第7页">
+                <span class="comic-page-num">7</span>
+            </div>
+            <div class="comic-page">
+                <img loading="lazy" decoding="async" src="images/comic/qimeng/绮梦花庄序章_第8页.jpg" alt="序章第8页">
+                <span class="comic-page-num">8</span>
+            </div>
+            <div class="comic-page">
+                <img loading="lazy" decoding="async" src="images/comic/qimeng/绮梦花庄序章_第9页.jpg" alt="序章第9页">
+                <span class="comic-page-num">9</span>
+            </div>
+            <div class="comic-page">
+                <img loading="lazy" decoding="async" src="images/comic/qimeng/绮梦花庄序章_第10页.jpg" alt="序章第10页">
+                <span class="comic-page-num">10</span>
+            </div>
+            <div class="comic-page">
+                <img loading="lazy" decoding="async" src="images/comic/qimeng/绮梦花庄序章_第11页.jpg" alt="序章第11页">
+                <span class="comic-page-num">11</span>
+            </div>
+            <div class="comic-page">
+                <img loading="lazy" decoding="async" src="images/comic/qimeng/绮梦花庄序章_第12页.jpg" alt="序章第12页">
+                <span class="comic-page-num">12</span>
+            </div>
+            <div class="comic-page">
+                <img loading="lazy" decoding="async" src="images/comic/qimeng/绮梦花庄序章_第13页.jpg" alt="序章第13页">
+                <span class="comic-page-num">13</span>
+            </div>
+            <div class="comic-page">
+                <img loading="lazy" decoding="async" src="images/comic/qimeng/绮梦花庄序章_第14页.jpg" alt="序章第14页">
+                <span class="comic-page-num">14</span>
+            </div>
+            <div class="comic-page">
+                <img loading="lazy" decoding="async" src="images/comic/qimeng/绮梦花庄序章_第15页.jpg" alt="序章第15页">
+                <span class="comic-page-num">15</span>
+            </div>
+            <div class="comic-page">
+                <img loading="lazy" decoding="async" src="images/comic/qimeng/绮梦花庄序章_第16页.jpg" alt="序章第16页">
+                <span class="comic-page-num">16</span>
+            </div>
+            <div class="comic-page">
+                <img loading="lazy" decoding="async" src="images/comic/qimeng/绮梦花庄序章_第17页.jpg" alt="序章第17页">
+                <span class="comic-page-num">17</span>
+            </div>
+            <div class="comic-page">
+                <img loading="lazy" decoding="async" src="images/comic/qimeng/绮梦花庄序章_第18页.jpg" alt="序章第18页">
+                <span class="comic-page-num">18</span>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>© 2024 <a href="index.html">Dreamier FUX</a> 多莉米雅 · 原创IP名器品牌</p>
+    </footer>
+</body>
+</html>
